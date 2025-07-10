@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VideoLucu+ | Beranda</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            dark: "#0f0f0f",
+            darker: "#181818",
+            accent: "#f1f1f1",
+            muted: "#aaa"
+          }
+        }
+      }
+    };
+  </script>
+
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBA_C0CVbAMipzGPE2wD9hY3-YoyNYPLMU",
+      authDomain: "gps-tracker-4a27c.firebaseapp.com",
+      projectId: "gps-tracker-4a27c",
+      storageBucket: "gps-tracker-4a27c.firebasestorage.app",
+      messagingSenderId: "334120793213",
+      appId: "1:334120793213:web:71b868b85bc6f01261ed14"
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    firebase.auth().onAuthStateChanged(user => {
+      if (!user) window.location.href = "login.html";
+    });
+
+    function logout() {
+      firebase.auth().signOut().then(() => {
+        window.location.href = "login.html";
+      });
+    }
+  </script>
+</head>
+<body class="bg-dark text-accent min-h-screen flex flex-col">
+
+  <header class="flex items-center justify-between px-4 py-3 bg-darker border-b border-gray-700">
+    <div class="flex items-center gap-4">
+      <button id="btnSidebarToggle" class="lg:hidden p-2">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+      <h1 class="text-xl font-bold">VideoLucu+</h1>
+    </div>
+    <div class="flex-1 px-4">
+      <input type="text" placeholder="Telusuri" class="w-full bg-black text-white rounded-full px-4 py-1 focus:outline-none" />
+    </div>
+    <div class="flex items-center gap-4">
+      <button>
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M17 10c0 1.31-.84 2.42-2 2.83V16h-2v-3.17A3.001 3.001 0 0113 7c1.66 0 3 1.34 3 3z"/>
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
+        </svg>
+      </button>
+      <img src="https://i.pravatar.cc/32" alt="Profile" class="w-8 h-8 rounded-full" />
+    </div>
+  </header>
+
+  <div class="flex flex-1 overflow-hidden">
+    <aside id="sidebar" class="fixed inset-y-0 left-0 z-40 w-64 bg-darker p-4 transform lg:relative lg:translate-x-0 transition-transform duration-200 -translate-x-full lg:translate-x-0">
+      <nav class="space-y-2 text-sm">
+        <a href="index.html" class="flex items-center gap-3 p-2 hover:bg-gray-700 rounded text-accent">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M3 9.5L12 3l9 6.5V21a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V9.5z"/>
+          </svg>
+          <span>Beranda</span>
+        </a>
+        <a href="#" class="flex items-center gap-3 p-2 hover:bg-gray-700 rounded">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M3 3h18v18H3V3z"/>
+          </svg>
+          <span>Shorts</span>
+        </a>
+        <a href="#" class="flex items-center gap-3 p-2 hover:bg-gray-700 rounded">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M4 4h16v16H4V4z"/>
+          </svg>
+          <span>Subscription</span>
+        </a>
+      </nav>
+      <button onclick="logout()" class="mt-auto flex items-center gap-3 p-2 text-danger hover:bg-gray-700 rounded">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+          <polyline points="16 17 21 12 16 7"/>
+          <line x1="21" y1="12" x2="9" y2="12"/>
+        </svg>
+        <span>Logout</span>
+      </button>
+    </aside>
+
+    <main class="flex-1 overflow-auto p-4">
+      <h2 class="text-2xl font-semibold mb-4">Video Rekomendasi</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div class="bg-darker rounded-lg overflow-hidden shadow">
+          <div class="bg-gray-700 h-40 w-full"></div>
+          <div class="p-3">
+            <h3 class="font-bold mb-1">Judul Video Lucu</h3>
+            <p class="text-muted text-sm">Channel Kocak • 1 jt x ditonton</p>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const btnToggle = document.getElementById('btnSidebarToggle');
+    const sidebar = document.getElementById('sidebar');
+    btnToggle.addEventListener('click', () => {
+      sidebar.classList.toggle('-translate-x-full');
+    });
+  </script>
+</body>
+</html>
