@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Formulir Pengenalan Diri</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            dark: '#0f172a',
+            accent: '#22d3ee',
+            danger: '#ef4444'
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-gradient-to-br from-blue-100 via-pink-100 to-yellow-100 min-h-screen flex flex-col items-center justify-center px-4 relative">
+
+  <!-- Form Container -->
+  <div class="bg-white w-full max-w-2xl p-6 rounded-3xl shadow-xl space-y-6 mb-20">
+    <h1 class="text-3xl font-bold text-center text-accent">FORMULIR DAN PENGENALAN DIRI</h1>
+
+    <form id="formulir" class="space-y-4">
+      <div>
+        <label class="block text-sm font-medium">Upload Foto</label>
+        <input type="file" name="foto" accept="image/*" required class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-50" />
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium">Nama Lengkap</label>
+        <input type="text" name="nama" required class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-50" />
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium">Nomor HP</label>
+        <input type="tel" name="hp" required class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-50" />
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium">Email</label>
+        <input type="email" name="email" required class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-50" />
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium">Usia</label>
+        <input type="number" name="usia" required class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-50" />
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium">Cerita Singkat Mengenai Diri Anda</label>
+        <textarea name="cerita" rows="3" class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-50" required></textarea>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium">Apa alasan kamu bergabung?</label>
+        <select name="alasan" class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-50" required>
+          <option value="">Pilih salah satu</option>
+          <option value="belajar">Untuk belajar</option>
+          <option value="komunitas">Ingin ikut komunitas</option>
+          <option value="berkontribusi">Ingin berkontribusi</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium">Upload Surat Perjanjian (admin)</label>
+        <input type="file" name="surat" class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-50" />
+      </div>
+
+      <!-- Multi Step Form -->
+      <div id="multi-step-form" class="space-y-4"></div>
+
+      <div id="form-navigation" class="flex justify-between mt-6">
+        <button type="button" id="prevBtn" class="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400 hidden">Kembali</button>
+        <button type="button" id="nextBtn" class="bg-accent px-4 py-2 rounded text-black hover:opacity-80">Lanjut</button>
+      </div>
+
+      <div id="result-container" class="hidden mt-6 p-4 bg-green-100 rounded-xl shadow-md">
+        <h2 class="text-xl font-bold text-green-800 mb-2">💡 Hasil Interpretasi:</h2>
+        <p id="resultText" class="text-gray-800 text-sm leading-relaxed"></p>
+      </div>
+
+      <button type="submit" class="w-full bg-accent text-black font-semibold py-3 rounded-lg hover:opacity-90 transition mt-4">Kirim Formulir</button>
+    </form>
+  </div>
+
+  <!-- Chatbot Non-AI -->
+  <div id="ai-chat" class="fixed bottom-4 right-4 z-50">
+    <div id="chatbox" class="hidden bg-white text-black rounded-lg shadow-lg w-72 mb-2 p-4">
+      <p class="font-semibold mb-2">🤖 <strong>Robo:</strong></p>
+      <div id="chat-messages" class="h-40 overflow-y-auto mb-3 text-sm space-y-2">
+        <div>Hai! Isi formulir dengan jujur ya 😊</div>
+      </div>
+      <form id="chat-form" class="flex gap-2">
+        <input type="text" id="user-message" placeholder="Tulis pesan..." class="flex-1 border rounded px-2 py-1 text-black" required>
+        <button type="submit" class="bg-accent text-black px-3 py-1 rounded hover:opacity-80">Kirim</button>
+      </form>
+    </div>
+    <button id="toggleChat" class="bg-accent p-3 rounded-full shadow-lg hover:scale-105 transition">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-black" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2a2 2 0 012 2h4a2 2 0 012 2v3.35a9 9 0 11-16 0V6a2 2 0 012-2h4a2 2 0 012-2zm-5 8a1.5 1.5 0 100 3 1.5 1.5 0 000-3zm10 0a1.5 1.5 0 100 3 1.5 1.5 0 000-3z"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    // Chatbot
+    window.addEventListener("DOMContentLoaded", () => {
+      const chatbox = document.getElementById("chatbox");
+      const toggleBtn = document.getElementById("toggleChat");
+      setTimeout(() => chatbox.classList.remove("hidden"), 1000);
+      toggleBtn.addEventListener("click", () => chatbox.classList.toggle("hidden"));
+    });
+
+    const chatForm = document.getElementById("chat-form");
+    const chatMessages = document.getElementById("chat-messages");
+    const userInput = document.getElementById("user-message");
+    chatForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const message = userInput.value.trim();
+      if (!message) return;
+      chatMessages.innerHTML += `<div class="text-right text-blue-600"><strong>Kamu:</strong> ${message}</div>`;
+      userInput.value = "";
+
+      const lowerMsg = message.toLowerCase();
+      let reply = "Maaf, saya tidak mengerti.";
+      if (lowerMsg.includes("cara isi")) reply = "Isi semua kolom dengan lengkap lalu klik Kirim.";
+      else if (lowerMsg.includes("upload")) reply = "Kamu bisa upload foto dan surat perjanjian (opsional).";
+      else if (lowerMsg.includes("hi") || lowerMsg.includes("halo")) reply = "Halo juga! 😊";
+      else reply = "Terima kasih! Jika bingung, tanyakan lagi.";
+
+      chatMessages.innerHTML += `<div class="text-gray-800"><strong>Robo:</strong> ${reply}</div>`;
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    });
+
+    // Multi-step Form Logic
+    const questions = [
+  {
+    title: "Bagian 1: Pendiam vs Mudah Berkawan",
+    items: [
+      "Saya merasa nyaman saat berada di keramaian.",
+      "Saya lebih suka sendiri daripada berkumpul.",
+      "Saya mudah memulai percakapan.",
+      "Saya merasa cepat lelah setelah bersosialisasi.",
+      "Saya senang menjadi pusat perhatian."
+    ]
+  },
+  {
+    title: "Bagian 2: Pandangan terhadap Hubungan",
+    items: [
+      "Saya menghormati hubungan antar sesama jenis.",
+      "Saya mendukung cinta tanpa batasan gender.",
+      "Saya merasa tidak nyaman melihat pasangan sesama jenis berpelukan.",
+      "Saya terbuka berteman dengan orang dengan orientasi berbeda.",
+      "Semua orang berhak atas cinta dan kebebasan memilih pasangan."
+    ]
+  },
+  {
+    title: "Bagian 3: Selektif dalam Memilih Pasangan",
+    items: [
+      "Penampilan sangat penting bagi saya.",
+      "Saya memiliki standar tinggi dalam memilih pasangan.",
+      "Saya tidak bisa jatuh cinta pada orang yang tidak menarik.",
+      "Status sosial mempengaruhi saya dalam memilih pasangan.",
+      "Saya bisa mencintai meskipun pasangan saya tidak sesuai kriteria saya."
+    ]
+  },
+  {
+    title: "Bagian 4: Sikap terhadap Seksualitas",
+    items: [
+      "Saya hanya mau seks dengan pasangan tetap.",
+      "Saya bisa berhubungan seks tanpa cinta.",
+      "Saya sangat selektif dalam hubungan seksual.",
+      "Penampilan mempengaruhi hasrat seksual saya.",
+      "Saya percaya seks harus dibangun atas koneksi emosional."
+    ]
+  },
+  {
+    title: "Bagian 5: Latar Belakang Keluarga",
+    items: [
+      "Keluarga saya cukup mampu secara ekonomi.",
+      "Saya tidak kekurangan saat tumbuh besar.",
+      "Orang tua saya selalu mendukung saya.",
+      "Saya berasal dari keluarga harmonis.",
+      "Saya sering melihat konflik di keluarga."
+    ]
+  },
+  {
+    title: "Bagian 6: Kejujuran & Niat Baik",
+    items: [
+      "Saya selalu berusaha berkata jujur.",
+      "Saya tidak suka menyakiti orang lain.",
+      "Saya merasa bersalah jika berbuat salah.",
+      "Saya menjaga kepercayaan orang lain.",
+      "Saya tidak pernah menipu orang lain demi keuntungan pribadi."
+    ]
+  },
+  {
+    title: "Bagian 7: Potensi Manipulasi atau Psikopatis",
+    items: [
+      "Saya pernah memanipulasi orang hanya untuk kesenangan.",
+      "Saya tidak merasa bersalah jika menyakiti orang.",
+      "Saya sering merasa lebih hebat dari orang lain.",
+      "Saya bisa sangat dingin jika itu menguntungkan saya.",
+      "Saya suka mengambil risiko tanpa memikirkan akibatnya."
+    ]
+  },
+  {
+    title: "Bagian 8: Struktur & Stabilitas Keluarga",
+    items: [
+      "Orang tua saya masih bersama.",
+      "Saya tumbuh dalam keluarga yang stabil.",
+      "Saya dibesarkan oleh kedua orang tua.",
+      "Saya sering merasa dicintai di rumah.",
+      "Saya mengalami masa kecil yang bahagia."
+    ]
+  }
+];
+
+    let currentStep = 0;
+    let responses = [];
+
+    const container = document.getElementById("multi-step-form");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const resultText = document.getElementById("resultText");
+    const resultContainer = document.getElementById("result-container");
+
+    function renderStep() {
+      const q = questions[currentStep];
+      container.innerHTML = `
+        <h2 class="text-xl font-semibold text-accent">${q.title}</h2>
+        ${q.items.map((item, idx) => `
+          <div class="mb-4">
+            <label class="block mb-1">${item}</label>
+            <div class="flex gap-2">
+              ${[1, 2, 3, 4, 5].map(val => `
+                <label class="inline-flex items-center">
+                  <input type="radio" name="q${currentStep}_${idx}" value="${val}" class="form-radio" required />
+                  <span class="ml-1 text-sm">${val}</span>
+                </label>
+              `).join('')}
+            </div>
+          </div>
+        `).join('')}
+      `;
+      prevBtn.style.display = currentStep === 0 ? "none" : "inline-block";
+      nextBtn.innerText = currentStep === questions.length - 1 ? "Lihat Hasil" : "Lanjut";
+    }
+
+    function collectAnswers() {
+      const inputs = container.querySelectorAll("input[type='radio']:checked");
+      if (inputs.length < 5) {
+        alert("Harap isi semua pertanyaan sebelum lanjut.");
+        return false;
+      }
+      const scores = Array.from(inputs).map(i => parseInt(i.value));
+      responses[currentStep] = scores;
+      return true;
+    }
+
+    function showResult() {
+      const total = responses.flat().reduce((a, b) => a + b, 0);
+      let interpretasi = "";
+      if (total >= 160) interpretasi = "Kamu memiliki kepribadian yang terbuka, jujur, stabil, dan mampu menerima perbedaan.";
+      else if (total >= 120) interpretasi = "Kamu cukup terbuka dan seimbang, dengan beberapa area yang masih bisa dikembangkan.";
+      else interpretasi = "Kamu cenderung tertutup, selektif, dan butuh refleksi lebih dalam terhadap relasi dan emosi.";
+
+      container.style.display = "none";
+      document.getElementById("form-navigation").style.display = "none";
+      resultContainer.classList.remove("hidden");
+      resultText.innerText = interpretasi;
+    }
+
+    nextBtn.addEventListener("click", () => {
+      if (!collectAnswers()) return;
+      if (currentStep < questions.length - 1) {
+        currentStep++;
+        renderStep();
+      } else {
+        showResult();
+      }
+    });
+
+    prevBtn.addEventListener("click", () => {
+      currentStep--;
+      renderStep();
+    });
+
+    window.addEventListener("DOMContentLoaded", renderStep);
+  </script>
+</body>
+</html>

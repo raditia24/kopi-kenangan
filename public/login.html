@@ -40,7 +40,7 @@
   <div class="bg-white rounded-3xl shadow-2xl w-full max-w-4xl overflow-hidden flex flex-col md:flex-row">
     
     <!-- Gambar Ilustrasi -->
-    <div class="w-full md:w-1/2 h-48 md:h-auto bg-cover bg-center" style="background-image: url('dokumen elemen/elemen-login.png');"></div>
+    <div class="hidden md:flex w-1/2 bg-cover bg-center" style="background-image: url('./dokumen elemen/elemen-login.png');"></div>
 
     <!-- Login Form -->
     <div class="w-full md:w-1/2 p-10 space-y-6">
@@ -84,7 +84,7 @@
       const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
       firebase.auth().signInWithEmailAndPassword(email, password)
-        .then(() => window.location.href = "index.html")
+        .then(() => window.location.href = "form.html")
         .catch(() => document.getElementById("errorText").classList.remove("hidden"));
     });
   </script>
