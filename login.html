@@ -37,10 +37,10 @@
 <body class="min-h-screen bg-gradient-to-br from-blue-100 via-pink-100 to-yellow-100 flex items-center justify-center px-4 relative">
 
   <!-- Container -->
-  <div class="bg-white rounded-3xl shadow-2xl flex w-full max-w-4xl overflow-hidden">
+  <div class="bg-white rounded-3xl shadow-2xl w-full max-w-4xl overflow-hidden flex flex-col md:flex-row">
     
-    <!-- Gambar / Ilustrasi -->
-    <div class="hidden md:flex w-1/2 bg-cover bg-center" style="background-image: url('dokumen elemen/elemen-login.png');"></div>
+    <!-- Gambar Ilustrasi -->
+    <div class="w-full md:w-1/2 h-48 md:h-auto bg-cover bg-center" style="background-image: url('dokumen elemen/elemen-login.png');"></div>
 
     <!-- Login Form -->
     <div class="w-full md:w-1/2 p-10 space-y-6">
@@ -56,7 +56,7 @@
     </div>
   </div>
 
-  <!-- AI Chatbox -->
+  <!-- Non-AI Chatbox -->
   <div id="ai-chat" class="fixed bottom-4 right-4 z-50">
     <div id="chatbox" class="hidden bg-white text-black rounded-lg shadow-lg w-72 mb-2 p-4">
       <p class="font-semibold mb-2">🤖 <strong>Robo:</strong></p>
@@ -89,14 +89,20 @@
     });
   </script>
 
-  <!-- AI Chat Script -->
+  <!-- Non-AI Chat Script -->
   <script>
+    const predefinedReplies = {
+      "cara login": "Silakan masukkan email dan password yang sudah didaftarkan.",
+      "lupa password": "Hubungi admin untuk reset password kamu.",
+      "apa itu videolucu+": "VideoLucu+ adalah platform video lucu eksklusif untuk member.",
+      "hi": "Hai juga! Ada yang bisa saya bantu?",
+      "halo": "Halo! 👋 Silakan tanya apa saja."
+    };
+
     window.addEventListener("DOMContentLoaded", () => {
       const chatbox = document.getElementById("chatbox");
       const toggleBtn = document.getElementById("toggleChat");
-
       setTimeout(() => chatbox.classList.remove("hidden"), 1000);
-
       toggleBtn.addEventListener("click", () => {
         chatbox.classList.toggle("hidden");
       });
@@ -106,32 +112,24 @@
     const chatMessages = document.getElementById("chat-messages");
     const userInput = document.getElementById("user-message");
 
-    chatForm.addEventListener("submit", async (e) => {
+    chatForm.addEventListener("submit", function(e) {
       e.preventDefault();
       const message = userInput.value.trim();
       if (!message) return;
 
       chatMessages.innerHTML += `<div class="text-right text-blue-600"><strong>Kamu:</strong> ${message}</div>`;
-      chatMessages.scrollTop = chatMessages.scrollHeight;
       userInput.value = "";
+      chatMessages.scrollTop = chatMessages.scrollHeight;
 
-      try {
-        const response = await fetch("http://localhost:3000/chat", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ prompt: message })
-        });
+      const lower = message.toLowerCase();
+      const reply = predefinedReplies[lower] || "Maaf, Robo belum paham pertanyaan itu. Coba yang lain ya 😊";
 
-        const data = await response.json();
-        chatMessages.innerHTML += `<div class="text-gray-800"><strong>Robo:</strong> ${data.reply}</div>`;
+      setTimeout(() => {
+        chatMessages.innerHTML += `<div class="text-gray-800"><strong>Robo:</strong> ${reply}</div>`;
         chatMessages.scrollTop = chatMessages.scrollHeight;
-      } catch (err) {
-        chatMessages.innerHTML += `<div class="text-red-600"><strong>Robo:</strong> Gagal menjawab. Coba lagi.</div>`;
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-      }
+      }, 500);
     });
   </script>
 </body>
 </html>
-
-
+`
