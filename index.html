@@ -5,6 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>VideoLucu+ | Beranda</title>
 
+  <!-- ✅ Redirect ke login.html jika belum login -->
+  <script>
+    const isFromLogin = sessionStorage.getItem("fromLogin");
+
+    if (!isFromLogin) {
+      window.location.href = "login.html";
+    }
+  </script>
+
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -40,6 +49,7 @@
 
     function logout() {
       firebase.auth().signOut().then(() => {
+        sessionStorage.removeItem("fromLogin");
         window.location.href = "login.html";
       });
     }
