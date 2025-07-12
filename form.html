@@ -43,6 +43,46 @@
       min-height: 44px;
     }
   }
+  <style>
+  /* Perapihan interpretasi di layar kecil */
+  @media (max-width: 640px) {
+    #result-container h2 {
+      font-size: 1rem; /* Ukuran judul hasil sedikit dikecilkan */
+      text-align: center;
+    }
+
+    #resultTable table {
+      font-size: 0.9rem;
+      width: 100%;
+    }
+
+    #resultTable th, #resultTable td {
+      padding: 0.5rem 0.25rem;
+      word-break: break-word;
+    }
+
+    #resultTable td:first-child {
+      min-width: 80px;
+    }
+
+    #resultTable td:last-child {
+      white-space: normal;
+    }
+
+    #result-container {
+      padding: 1rem;
+    }
+
+    #resultTable {
+      overflow-x: auto;
+      display: block;
+    }
+  }
+
+  /* Tambahan supaya tabel tidak mepet */
+  #resultTable th, #resultTable td {
+    vertical-align: top;
+  }
 </style>
 <script>
   tailwind.config = {
