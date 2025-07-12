@@ -58,26 +58,128 @@
     </div>
   </div>
 
-  <!-- Non-AI Chatbox -->
-  <div id="ai-chat" class="fixed bottom-4 right-4 z-50">
-    <div id="chatbox" class="hidden bg-white text-black rounded-lg shadow-lg w-72 mb-2 p-4">
-      <p class="font-semibold mb-2">🤖 <strong>Robo:</strong></p>
-      <div id="chat-messages" class="h-40 overflow-y-auto mb-3 text-sm space-y-2">
-        <div>Hai! Saya Robo, siap bantu kamu menggunakan <strong>VideoLucu+</strong> 😊</div>
-      </div>
-      <form id="chat-form" class="flex gap-2">
-        <input type="text" id="user-message" placeholder="Tulis pesan..." class="flex-1 border rounded px-2 py-1 text-black" required>
-        <button type="submit" class="bg-accent text-black px-3 py-1 rounded hover:opacity-80">Kirim</button>
-      </form>
+  <!-- ✅ Chatbot Bubble Final Gabungan -->
+<div id="chatbot-bubble" class="fixed bottom-6 right-6 z-50">
+  <button id="toggle-chatbot" class="bg-yellow-400 w-14 h-14 rounded-full shadow-lg flex items-center justify-center text-white text-2xl">
+    🤖
+  </button>
+
+  <!-- Chatbox -->
+  <div id="chatbot-box" class="hidden mt-2 w-80 bg-white rounded-lg shadow-lg overflow-hidden border border-gray-300 flex flex-col">
+    <div class="p-3 bg-yellow-400 text-black font-semibold text-sm">AI Customer Service</div>
+    
+    <div id="chat-messages" class="p-3 h-48 overflow-y-auto text-sm text-gray-800 space-y-2 flex flex-col">
+      <div class="bg-gray-100 p-2 rounded">Halo! Ada yang bisa saya bantu? 😊</div>
     </div>
 
-    <!-- Tombol Bulat -->
-    <button id="toggleChat" class="bg-accent p-3 rounded-full shadow-lg hover:scale-105 transition">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-black" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12 2a2 2 0 012 2h4a2 2 0 012 2v3.35a9 9 0 11-16 0V6a2 2 0 012-2h4a2 2 0 012-2zm-5 8a1.5 1.5 0 100 3 1.5 1.5 0 000-3zm10 0a1.5 1.5 0 100 3 1.5 1.5 0 000-3z"/>
-      </svg>
-    </button>
+    <!-- Quick Reply muncul otomatis -->
+    <div id="quick-replies" class="px-3 pb-2 hidden text-sm space-y-1"></div>
+
+    <!-- Form Chat -->
+    <form id="chat-form" class="flex border-t border-gray-300">
+      <input type="text" id="chat-input" placeholder="Ketik pesan..." class="flex-1 px-3 py-2 text-sm outline-none" />
+      <button type="submit" class="px-4 bg-yellow-400 text-black text-sm font-semibold">Kirim</button>
+    </form>
+
+    <!-- Tombol Chat Admin -->
+    <button id="chat-admin" class="text-xs text-gray-600 py-2 hover:underline">👨‍💼 Chat Admin</button>
   </div>
+</div>
+
+<!-- ✅ Script Logika Chatbot -->
+<script>
+  const toggleBtn = document.getElementById("toggle-chatbot");
+  const chatbotBox = document.getElementById("chatbot-box");
+  const chatBox = document.getElementById("chat-messages");
+  const chatForm = document.getElementById("chat-form");
+  const chatInput = document.getElementById("chat-input");
+  const quickReplies = document.getElementById("quick-replies");
+  const chatAdmin = document.getElementById("chat-admin");
+
+  toggleBtn.addEventListener("click", () => {
+    chatbotBox.classList.toggle("hidden");
+  });
+
+  chatForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const msg = chatInput.value.trim();
+    if (msg === "") return;
+
+    addUserMessage(msg);
+    chatInput.value = "";
+
+    handleKeywords(msg.toLowerCase());
+  });
+
+  function addUserMessage(text) {
+    const msg = document.createElement("div");
+    msg.className = "bg-blue-100 p-2 rounded self-end max-w-[90%]";
+    msg.textContent = text;
+    chatBox.appendChild(msg);
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
+
+  function addBotMessage(text) {
+    const msg = document.createElement("div");
+    msg.className = "bg-gray-100 p-2 rounded max-w-[90%]";
+    msg.textContent = text;
+    chatBox.appendChild(msg);
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
+
+  function showSuggestions(questions) {
+    quickReplies.innerHTML = "";
+    quickReplies.classList.remove("hidden");
+
+    questions.forEach(q => {
+      const btn = document.createElement("button");
+      btn.textContent = q;
+      btn.className = "block w-full text-left px-3 py-1 bg-gray-100 rounded hover:bg-gray-200";
+      btn.onclick = () => {
+        addUserMessage(q);
+        quickReplies.classList.add("hidden");
+        setTimeout(() => {
+          addBotMessage("Berikut penjelasannya untuk: " + q);
+        }, 1000);
+      };
+      quickReplies.appendChild(btn);
+    });
+  }
+
+  function handleKeywords(keyword) {
+    if (keyword.includes("login")) {
+      showSuggestions([
+        "Bagaimana cara login?",
+        "Lupa password akun saya",
+        "Email saya tidak terdaftar"
+      ]);
+    } else if (keyword.includes("upload")) {
+      showSuggestions([
+        "Bagaimana cara upload video?",
+        "Format video yang didukung apa saja?",
+        "Kenapa upload saya gagal?"
+      ]);
+    } else if (keyword.includes("koleksi")) {
+      showSuggestions([
+        "Dimana melihat koleksi saya?",
+        "Bagaimana cara menyimpan video?",
+        "Koleksi saya hilang"
+      ]);
+    } else {
+      setTimeout(() => {
+        addBotMessage("Terima kasih! Kami akan membalas segera.");
+        quickReplies.classList.add("hidden");
+      }, 1000);
+    }
+  }
+
+  chatAdmin.addEventListener("click", () => {
+    addUserMessage("Chat Admin");
+    setTimeout(() => {
+      addBotMessage("Terima kasih! Kami akan membalas segera.");
+    }, 1000);
+  });
+</script>
 
   <!-- Firebase Login Script -->
   <script>
