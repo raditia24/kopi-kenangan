@@ -38,7 +38,7 @@ app.post("/submit-form", upload.any(), (req, res) => {
   );
 
   // ✅ redirect ke index.html (pastikan file ini ada)
-  res.json({ success: true, redirect: "/index.html" });
+  res.json({ success: true, redirect: "index.html" });
 });
 
 app.listen(port, () => {

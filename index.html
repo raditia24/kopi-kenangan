@@ -3,17 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>VideoLucu+ | Beranda</title>
+  <title>VideoLucu+ | Profil</title>
 
-  <!-- ✅ Redirect ke login.html jika belum login -->
+  <!-- Redirect ke login.html jika belum login -->
   <script>
     const isFromLogin = sessionStorage.getItem("fromLogin");
-
-    if (!isFromLogin) {
-      window.location.href = "login.html";
-    }
+    if (!isFromLogin) window.location.href = "login.html";
   </script>
 
+  <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -23,88 +21,97 @@
             dark: "#0f0f0f",
             darker: "#181818",
             accent: "#f1f1f1",
-            muted: "#aaa"
+            muted: "#aaa",
+            danger: "#ef4444"
           }
         }
       }
     };
   </script>
-
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyBA_C0CVbAMipzGPE2wD9hY3-YoyNYPLMU",
-      authDomain: "gps-tracker-4a27c.firebaseapp.com",
-      projectId: "gps-tracker-4a27c",
-      storageBucket: "gps-tracker-4a27c.firebasestorage.app",
-      messagingSenderId: "334120793213",
-      appId: "1:334120793213:web:71b868b85bc6f01261ed14"
-    };
-    firebase.initializeApp(firebaseConfig);
-
-    firebase.auth().onAuthStateChanged(user => {
-      if (!user) window.location.href = "login.html";
-    });
-
-    function logout() {
-      firebase.auth().signOut().then(() => {
-        sessionStorage.removeItem("fromLogin");
-        window.location.href = "login.html";
-      });
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-  </script>
+  </style>
+  <body class="min-h-screen bg-gradient-to-br from-rose-50 to-blue-50 text-gray-800 font-sans antialiased">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+
+  <!-- Google Maps -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGmyabCCnKfK5VZYJFoxOYF2koBXvcVIE"></script>
 </head>
-<body class="bg-dark text-accent min-h-screen flex flex-col">
+<body>
+  <!-- Seluruh isi <body> copy-paste dari HTML kamu sebelumnya, tidak diubah -->
+  <!-- Header -->
+ <header class="bg-gradient-to-r from-rose-100 via-yellow-100 to-blue-100 text-gray-800 p-4 flex justify-between items-center">
+   <div class="flex items-center gap-4">
+     <button id="btnSidebarToggle" class="lg:hidden p-2">
+       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+       </svg>
+     </button>
+     <h1 class="text-xl font-bold">VideoLucu+</h1>
+   </div>
+   <div class="flex-1 px-4">
+     <input type="text" placeholder="Telusuri" class="w-full bg-black text-white rounded-full px-4 py-1 focus:outline-none" />
+   </div>
+   <div class="flex items-center gap-4">
+     <button>
+       <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+         <path d="M17 10c0 1.31-.84 2.42-2 2.83V16h-2v-3.17A3.001 3.001 0 0113 7c1.66 0 3 1.34 3 3z"/>
+         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
+       </svg>
+     </button>
+     <img src="https://i.pravatar.cc/32" alt="Profile" class="w-8 h-8 rounded-full" />
+   </div>
+ </header>
 
-  <header class="flex items-center justify-between px-4 py-3 bg-darker border-b border-gray-700">
-    <div class="flex items-center gap-4">
-      <button id="btnSidebarToggle" class="lg:hidden p-2">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M4 6h16M4 12h16M4 18h16"/>
-        </svg>
-      </button>
-      <h1 class="text-xl font-bold">VideoLucu+</h1>
-    </div>
-    <div class="flex-1 px-4">
-      <input type="text" placeholder="Telusuri" class="w-full bg-black text-white rounded-full px-4 py-1 focus:outline-none" />
-    </div>
-    <div class="flex items-center gap-4">
-      <button>
-        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M17 10c0 1.31-.84 2.42-2 2.83V16h-2v-3.17A3.001 3.001 0 0113 7c1.66 0 3 1.34 3 3z"/>
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
-        </svg>
-      </button>
-      <img src="https://i.pravatar.cc/32" alt="Profile" class="w-8 h-8 rounded-full" />
-    </div>
-  </header>
-
+  <!-- Container -->
   <div class="flex flex-1 overflow-hidden">
-    <aside id="sidebar" class="fixed inset-y-0 left-0 z-40 w-64 bg-darker p-4 transform lg:relative lg:translate-x-0 transition-transform duration-200 -translate-x-full lg:translate-x-0">
-      <nav class="space-y-2 text-sm">
-        <a href="index.html" class="flex items-center gap-3 p-2 hover:bg-gray-700 rounded text-accent">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M3 9.5L12 3l9 6.5V21a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V9.5z"/>
+    <!-- Sidebar -->
+    <aside id="sidebar" class="fixed inset-y-0 left-0 z-40 w-64 bg-gradient-to-b from-pink-200 via-yellow-100 to-blue-200 p-5 transform lg:translate-x-0 transition-transform duration-200 -translate-x-full lg:relative rounded-tr-3xl rounded-br-3xl shadow-xl">
+      <nav class="space-y-4 text-base font-semibold text-gray-800">
+        <a href="#" id="menu-profil" class="flex items-center gap-4 p-3 bg-white/80 rounded-xl shadow transition hover:bg-white">
+          <svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4z"/>
+            <path d="M12 14c-4.42 0-8 1.79-8 4v2h16v-2c0-2.21-3.58-4-8-4z"/>
           </svg>
-          <span>Beranda</span>
+          <span>Profil</span>
         </a>
-        <a href="#" class="flex items-center gap-3 p-2 hover:bg-gray-700 rounded">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M3 3h18v18H3V3z"/>
+        <a href="#" id="menu-member" class="flex items-center gap-4 p-3 bg-white/80 rounded-xl shadow transition hover:bg-white">
+          <svg class="w-6 h-6 text-pink-600" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4z"/>
+            <path d="M12 14c-4.42 0-8 1.79-8 4v2h16v-2c0-2.21-3.58-4-8-4z"/>
           </svg>
-          <span>Shorts</span>
+          <span>Member</span>
         </a>
-        <a href="#" class="flex items-center gap-3 p-2 hover:bg-gray-700 rounded">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M4 4h16v16H4V4z"/>
+        <a href="#" id="menu-location" class="flex items-center gap-4 p-3 bg-white/80 rounded-xl shadow transition hover:bg-white">
+          <svg class="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4z"/>
+            <path d="M12 14c-4.42 0-8 1.79-8 4v2h16v-2c0-2.21-3.58-4-8-4z"/>
           </svg>
-          <span>Subscription</span>
+          <span>Location</span>
+        </a>
+        <a href="#" class="flex items-center gap-4 p-3 bg-white/80 rounded-xl shadow transition hover:bg-white">
+          <svg class="w-6 h-6 text-purple-600" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20z"/>
+          </svg>
+          <span>Grup Chat</span>
+        </a>
+        <a href="monitoring.html" class="flex items-center gap-4 p-3 bg-white/80 rounded-xl shadow transition hover:bg-white">
+          <i class="fas fa-chart-line text-green-600"></i>
+          <span>Monitoring</span>
         </a>
       </nav>
-      <button onclick="logout()" class="mt-auto flex items-center gap-3 p-2 text-danger hover:bg-gray-700 rounded">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+
+      <button onclick="logout()" class="mt-10 flex items-center gap-4 p-3 text-white bg-red-500 hover:bg-red-600 rounded-xl shadow transition">
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
           <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
           <polyline points="16 17 21 12 16 7"/>
           <line x1="21" y1="12" x2="9" y2="12"/>
@@ -112,27 +119,136 @@
         <span>Logout</span>
       </button>
     </aside>
-
+    <!-- Main Content -->
     <main class="flex-1 overflow-auto p-4">
-      <h2 class="text-2xl font-semibold mb-4">Video Rekomendasi</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
-        <div class="bg-darker rounded-lg overflow-hidden shadow">
-          <div class="bg-gray-700 h-40 w-full"></div>
-          <div class="p-3">
-            <h3 class="font-bold mb-1">Judul Video Lucu</h3>
-            <p class="text-muted text-sm">Channel Kocak • 1 jt x ditonton</p>
+      <!-- Halaman Profil -->
+      <div id="main-profil" class="w-full bg-rose-50 p-4 rounded-xl shadow-inner">
+        <h2 class="text-2xl font-bold mb-4 text-rose-700">Profil Pengguna</h2>
+        <div class="bg-white rounded-xl p-6 shadow space-y-4 text-gray-800">
+          <div class="flex items-center gap-4">
+            <img id="profil-foto" src="https://via.placeholder.com/150" class="w-32 h-32 rounded-full border-4 border-pink-400 shadow-xl" />
+            <div>
+              <h3 id="profil-nama" class="text-2xl font-bold">Nama Lengkap</h3>
+              <p id="profil-email" class="text-sm text-gray-600">email@example.com</p>
+              <div class="flex items-center gap-2 mt-2">
+                <button class="px-3 py-1 bg-blue-200 text-blue-900 rounded-full text-xs hover:bg-blue-300">Edit Data</button>
+                <span id="badge-status" class="inline-block px-3 py-1 text-xs font-semibold rounded-full bg-green-200 text-green-800">
+                  User
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+            <div><strong>UID:</strong> <span id="profil-uid">-</span></div>
+            <div><strong>Usia:</strong> <span id="profil-usia">-</span></div>
+            <div><strong>No HP:</strong> <span id="profil-hp">-</span></div>
+            <div><strong>Asal Sekolah/Kota:</strong> <span id="profil-asal">-</span></div>
+            <div><strong>Alasan Bergabung:</strong> <span id="profil-alasan">-</span></div>
+          </div>
+
+          <div>
+            <strong class="block mb-1">Cerita Singkat:</strong>
+            <p id="profil-cerita" class="bg-gray-100 p-3 rounded text-sm">-</p>
+          </div>
+
+          <div>
+            <h4 class="text-lg font-semibold mb-2">Hasil Interpretasi</h4>
+            <div id="profil-interpretasi" class="space-y-3 text-sm">
+              <div class="bg-gray-100 p-2 rounded text-gray-600">Menunggu data...</div>
+            </div>
           </div>
         </div>
       </div>
-    </main>
-  </div>
+    
+      <!-- Halaman Member -->
+      <div id="main-member" class="w-full bg-blue-50 p-4 rounded-xl shadow-inner hidden">
+        <h2 class="text-2xl font-bold mb-4 text-blue-700">Daftar Member</h2>
 
-  <script>
-    const btnToggle = document.getElementById('btnSidebarToggle');
-    const sidebar = document.getElementById('sidebar');
-    btnToggle.addEventListener('click', () => {
-      sidebar.classList.toggle('-translate-x-full');
-    });
-  </script>
+        <div class="bg-white rounded-xl p-6 shadow space-y-4 text-gray-800">
+          <!-- Pencarian dan Filter -->
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <input id="searchMember" type="text" placeholder="🔍 Cari member..."
+              class="w-full sm:w-1/2 px-4 py-2 rounded-full border-blue-200 shadow focus:outline-none focus:ring-2 focus:ring-blue-300" />
+            <select id="filterRole"
+              class="w-full sm:w-1/3 px-4 py-2 rounded-full border border-blue-200 shadow text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-300">
+              <option value="">Semua Role</option>
+              <option value="admin">Admin</option>
+              <option value="operator">Operator</option>
+              <option value="member">Member</option>
+            </select>
+          </div>
+
+          <!-- Daftar Kartu Member -->
+          <div id="member-list" class="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+            <!-- Kartu member dirender via JS -->
+          </div>
+
+          <!-- Navigasi Halaman -->
+          <div class="flex items-center justify-between pt-4 border-t">
+            <button id="prevMemberPage"
+              class="px-3 py-1 bg-red-600 hover:bg-red-700 text-white text-sm rounded disabled:opacity-50">
+              &laquo; Sebelumnya
+            </button>
+            <span id="memberPageInfo" class="text-sm text-gray-600">Halaman 1 dari 5</span>
+            <button id="nextMemberPage"
+              class="px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white text-sm rounded">
+              Berikutnya &raquo;
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Halaman Location -->
+      <div id="main-location" class="w-full bg-green-50 p-4 rounded-xl shadow-inner hidden">
+        <h2 class="text-2xl font-bold mb-4 text-green-700">Lokasi Member</h2>
+        <div class="bg-white rounded-xl p-6 shadow space-y-4 text-gray-800">
+          <p class="text-sm text-gray-600">Peta lokasi member akan ditampilkan di sini.</p>
+          <div id="map" class="w-full h-96 bg-gray-200 rounded-lg flex items-center justify-center text-gray-500">
+            [Peta Belum Aktif]
+        </div>
+
+        <!-- Filter berdasarkan radius -->
+        <div class="flex items-center gap-4 mb-4">
+          <label for="radiusFilter" class="text-sm font-medium text-gray-700">Filter Radius (km):</label>
+          <input type="number" id="radiusFilter" min="1" max="1000" value="50" class="w-24 p-2 border border-gray-300 rounded-lg shadow-sm">
+          <button id="filterRadiusBtn" class="bg-green-600 hover:bg-green-700 text-white text-sm px-4 py-2 rounded-lg">Terapkan</button>
+        </div>
+        
+        <!-- Tabel lokasi member -->
+        <div class="overflow-x-auto rounded-x1 shadow-inner">
+          <table class="min-w-full text-sm text-left text-gray-700">
+            <thead class="text-xs uppercase bg-green-100 text-green-800">
+              <tr>
+                <th class="px-4 py-2">Nama</th>
+                <th class="px-4 py-2">ID</th>
+                <th class="px-4 py-2">Kota</th>
+                <th class="px-4 py-2">Terakhir Update</th>
+                <th class="px-4 py-2">Jarak (km)</th>
+              </tr>
+            </thead>
+            <tbody id="tabelLokasiMember" class="bg-white divide-y divide-gray-200">
+              <!-- Baris data akan diisi lewat JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    <!-- Modal Chat -->
+    <div id="chatModal" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center">
+      <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-4">
+        <h3 id="chatModalTitle" class="font-bold text-lg mb-2">Chat dengan Member</h3>
+        <textarea id="chatInput" rows="4" class="w-full border rounded p-2 mb-4" placeholder="Tulis pesan..."></textarea>
+        <div class="flex justify-end gap-2">
+          <button onclick="closeChatModal()" class="px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded">Batal</button>
+          <button onclick="kirimChat()" class="px-4 py-2 bg-blue-500 text-white hover:bg-blue-600 rounded">Kirim</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Panggil file JavaScript eksternal -->
+  <script src="app.js"></script>
 </body>
 </html>

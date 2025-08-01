@@ -59,10 +59,10 @@
   </div>
 
   <!-- ✅ Chatbot Bubble Final Gabungan -->
-<div id="chatbot-bubble" class="fixed bottom-6 right-6 z-50">
-  <button id="toggle-chatbot" class="bg-yellow-400 w-14 h-14 rounded-full shadow-lg flex items-center justify-center text-white text-2xl">
-    🤖
-  </button>
+  <div id="chatbot-bubble" class="fixed bottom-6 right-6 z-50">
+    <button id="toggle-chatbot" class="bg-yellow-400 w-14 h-14 rounded-full shadow-lg flex items-center justify-center text-white text-2xl">
+      🤖
+    </button>
 
   <!-- Chatbox -->
   <div id="chatbot-box" class="hidden mt-2 w-80 bg-white rounded-lg shadow-lg overflow-hidden border border-gray-300 flex flex-col">
@@ -203,36 +203,60 @@
       "halo": "Halo! 👋 Silakan tanya apa saja."
     };
 
-    window.addEventListener("DOMContentLoaded", () => {
-      const chatbox = document.getElementById("chatbox");
-      const toggleBtn = document.getElementById("toggleChat");
-      setTimeout(() => chatbox.classList.remove("hidden"), 1000);
-      toggleBtn.addEventListener("click", () => {
-        chatbox.classList.toggle("hidden");
-      });
-    });
-
-    const chatForm = document.getElementById("chat-form");
-    const chatMessages = document.getElementById("chat-messages");
-    const userInput = document.getElementById("user-message");
-
-    chatForm.addEventListener("submit", function(e) {
+    chatForm.addEventListener("submit", async function(e) {
       e.preventDefault();
       const message = userInput.value.trim();
       if (!message) return;
 
+      // Tampilkan pesan user
       chatMessages.innerHTML += `<div class="text-right text-blue-600"><strong>Kamu:</strong> ${message}</div>`;
-      userInput.value = "";
       chatMessages.scrollTop = chatMessages.scrollHeight;
+      userInput.value = "";
 
+      // Simpan pesan user ke Firestore
+      await db.collection("chat").add({
+        dari: "user",
+        kepada: "admin",
+        pesan: message,
+        waktu: new Date()
+      });
+
+      // Cek predefined atau balasan AI
       const lower = message.toLowerCase();
       const reply = predefinedReplies[lower] || "Maaf, Robo belum paham pertanyaan itu. Coba yang lain ya 😊";
 
-      setTimeout(() => {
+      setTimeout(async () => {
+        // Tampilkan balasan AI
         chatMessages.innerHTML += `<div class="text-gray-800"><strong>Robo:</strong> ${reply}</div>`;
         chatMessages.scrollTop = chatMessages.scrollHeight;
+
+        // Simpan balasan AI ke Firestore
+        await db.collection("chat").add({
+          dari: "admin",
+          kepada: "user",
+          pesan: reply,
+          waktu: new Date()
+        });
       }, 500);
     });
+
+   db.collection("chat")
+      .where("dari", "==", "admin")
+      .where("kepada", "==", "user")
+      .orderBy("waktu")
+      .onSnapshot(snapshot => {
+        snapshot.docChanges().forEach(change => {
+          if (change.type === "added") {
+            const d = change.doc.data();
+            chatMessages.innerHTML += `<div class="text-gray-800"><strong>Admin:</strong> ${d.pesan}</div>`;
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+          }
+        });
+       });
+  
   </script>
 </body>
 </html>
+
+
+

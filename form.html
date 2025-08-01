@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Formulir Pengenalan Diri</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -27,15 +27,10 @@
       width: 48px;
       height: 48px;
       text-align: center;
-      line-height: 1;
-      user-select: none;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
       border-radius: 9999px;
       border: 1px solid #ccc;
-      font-weight: 600;
       background-color: #f3f4f6;
+      font-weight: 600;
       transition: background-color 0.3s, color 0.3s;
     }
 
@@ -49,585 +44,426 @@
       background-color: #22d3ee;
       color: black;
     }
-
-    @media (max-width: 640px) {
-      label[for^="q"] {
-        min-width: 44px;
-        min-height: 44px;
-      }
-    }
-
-    /* Perapihan interpretasi di layar kecil */
-    @media (max-width: 640px) {
-      #result-container h2 {
-        font-size: 1rem;
-        text-align: center;
-      }
-
-      #resultTable table {
-        font-size: 0.9rem;
-        width: 100%;
-      }
-
-      #resultTable th, #resultTable td {
-        padding: 0.5rem 0.25rem;
-        word-break: break-word;
-      }
-
-      #resultTable td:first-child {
-        min-width: 80px;
-      }
-
-      #resultTable td:last-child {
-        white-space: normal;
-      }
-
-      #result-container {
-        padding: 1rem;
-      }
-
-      #resultTable {
-        overflow-x: auto;
-        display: block;
-      }
-    }
-
-    /* Tambahan supaya tabel tidak mepet */
-    #resultTable th, #resultTable td {
-      vertical-align: top;
-    }
   </style>
 </head>
 <body class="bg-gradient-to-br from-blue-100 via-pink-100 to-yellow-100 min-h-screen flex flex-col items-center justify-center px-4 relative">
-
   <div class="bg-white w-full max-w-3xl p-6 rounded-3xl shadow-xl space-y-6 mb-24">
     <h1 class="text-3xl font-bold text-center text-accent">FORMULIR DAN PENGENALAN DIRI</h1>
-
-    <form id="formulir" class="space-y-4">
-
-      <!-- Biodata -->
-      <div>
-        <label class="block text-sm font-medium">Upload Foto</label>
-        <input type="file" name="foto" accept="image/*" required class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-50" />
-      </div>
-
-      <div>
-        <label class="block text-sm font-medium">Nama Lengkap</label>
-        <input type="text" name="nama" required class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-50" />
-      </div>
-
-      <div>
-        <label class="block text-sm font-medium">Nomor HP</label>
-        <input type="tel" name="hp" required class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-50" />
-      </div>
-
-      <div>
-        <label class="block text-sm font-medium">Email</label>
-        <input type="email" name="email" required class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-50" />
-      </div>
-
-      <div>
-        <label class="block text-sm font-medium">Usia</label>
-        <input type="number" name="usia" required class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-50" />
-      </div>
-
-      <div>
-        <label class="block text-sm font-medium">Cerita Singkat Mengenai Diri Anda</label>
-        <textarea name="cerita" rows="3" class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-50" required></textarea>
-      </div>
-
+    <form id="user" class="space-y-4">
+      <div><label class="block text-sm font-medium">Upload Foto</label><input type="file" name="foto" required class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-50" /></div>
+      <div><label class="block text-sm font-medium">Nama Lengkap</label><input type="text" name="nama" required class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-50" /></div>
+      <div><label class="block text-sm font-medium">Asal Sekolah/Kota</label><input type="text" name="asal" required class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-50" /></div>
+      <div><label class="block text-sm font-medium">Nomor HP</label><input type="tel" name="hp" required class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-50" /></div>
+      <div><label class="block text-sm font-medium">Email</label><input type="email" name="email" required class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-50" /></div>
+      <div><label class="block text-sm font-medium">Usia</label><input type="number" name="usia" required class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-50" min="5" max="100" /></div>
+      <div><label class="block text-sm font-medium">Cerita Singkat Mengenai Diri Anda</label><textarea name="cerita" rows="3" class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-50" required></textarea></div>
       <div>
         <label class="block text-sm font-medium">Apa alasan kamu bergabung?</label>
         <select name="alasan" class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-50" required>
           <option value="">Pilih salah satu</option>
-          <option value="belajar">Untuk belajar</option>
-          <option value="komunitas">Ingin ikut komunitas</option>
-          <option value="berkontribusi">Ingin berkontribusi</option>
+          <option value="Eksplorasi Diri">Eksplorasi Diri</option>
+          <option value="Bimbingan">Bimbingan</option>
+          <option value="Tugas">Tugas</option>
         </select>
       </div>
-
       <div>
         <label class="block text-sm font-medium">Upload Surat Perjanjian (admin)</label>
         <input type="file" name="surat" class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-50" />
       </div>
 
-      <!-- Multi Step Form -->
+      <!-- Multi-step Pertanyaan -->
       <div id="multi-step-form" class="space-y-4"></div>
 
-      <!-- Navigasi -->
       <div id="form-navigation" class="flex justify-between mt-6">
-        <button type="button" id="prevBtn" class="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400 hidden">Kembali</button>
-        <button type="button" id="nextBtn" class="bg-accent px-4 py-2 rounded text-black hover:opacity-80">Lanjut</button>
+        <button type="button" id="prevBtn" class="bg-gray-300 px-4 py-2 rounded hidden">Kembali</button>
+        <button type="button" id="nextBtn" class="bg-accent px-4 py-2 rounded text-black">Lanjut</button>
       </div>
 
-      <!-- Hasil Interpretasi -->
+      <!-- Hasil -->
       <div id="result-container" class="hidden mt-6 p-4 bg-green-100 rounded-xl shadow-md">
         <h2 class="text-xl font-bold text-green-800 mb-2">💡 Hasil Interpretasi:</h2>
         <div id="resultTable" class="text-sm text-gray-800 space-y-3"></div>
       </div>
-
-      <!-- Submit -->
-      <button type="submit" class="w-full bg-accent text-black font-semibold py-3 rounded-lg hover:opacity-90 transition mt-4">
-        Kirim Formulir
-      </button>
-    </form>
-  </div>
-
-  <!-- ✅ Chatbot Bubble -->
-  <div id="chatbot-bubble" class="fixed bottom-6 right-6 z-50">
-    <button id="toggle-chatbot" class="bg-yellow-400 w-14 h-14 rounded-full shadow-lg flex items-center justify-center text-white text-2xl">
-      🤖
-    </button>
-
-    <!-- Chatbox -->
-    <div id="chatbot-box" class="hidden mt-2 w-80 bg-white rounded-lg shadow-lg overflow-hidden border border-gray-300 flex flex-col">
-      <div class="p-3 bg-yellow-400 text-black font-semibold text-sm">AI Customer Service</div>
-
-      <div id="chat-messages" class="p-3 h-48 overflow-y-auto text-sm text-gray-800 space-y-2 flex flex-col">
-        <div class="bg-gray-100 p-2 rounded">Halo! Ada yang bisa saya bantu? 😊</div>
+      <div class="mt-4 flex gap-4 flex-wrap">
+        <button onclick="saveToFirestore()" type="button" class="bg-blue-600 text-white px-4 py-2 rounded">Simpan Hasil</button>
+        <button onclick="exportPDF()" type="button" class="bg-green-600 text-white px-4 py-2 rounded">Unduh PDF</button>
+        <button onclick="toIndex()" type="button" class="bg-gray-700 text-white px-4 py-2 rounded">Masuk Ke Beranda</button>
       </div>
 
-      <div id="quick-replies" class="px-3 pb-2 hidden text-sm space-y-1"></div>
-
-      <!-- Form Chat -->
-      <form id="chat-form" class="flex border-t border-gray-300">
-        <input type="text" id="chat-input" placeholder="Ketik pesan..." class="flex-1 px-3 py-2 text-sm outline-none" />
-        <button type="submit" class="px-4 bg-yellow-400 text-black text-sm font-semibold">Kirim</button>
-      </form>
-
-      <!-- Tombol Chat Admin -->
-      <button id="chat-admin" class="text-xs text-gray-600 py-2 hover:underline">👨‍💼 Chat Admin</button>
-    </div>
+      <button type="submit" class="w-full bg-accent text-black font-semibold py-3 rounded-lg hover:opacity-90 transition mt-4">Kirim Formulir</button>
+    </form>
   </div>
-<!-- ✅ Script Logika Chatbot -->
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
 <script>
-  const toggleBtn = document.getElementById("toggle-chatbot");
-  const chatbotBox = document.getElementById("chatbot-box");
-  const chatBox = document.getElementById("chat-messages");
-  const chatForm = document.getElementById("chat-form");
-  const chatInput = document.getElementById("chat-input");
-  const quickReplies = document.getElementById("quick-replies");
-  const chatAdmin = document.getElementById("chat-admin");
+  const firebaseConfig = {
+    apiKey: "AIzaSyBA_C0CVbAMipzGPE2wD9hY3-YoyNYPLMU",
+    authDomain: "gps-tracker-4a27c.firebaseapp.com",
+    projectId: "gps-tracker-4a27c",
+    storageBucket: "gps-tracker-4a27c.appspot.com",
+    messagingSenderId: "334120793213",
+    appId: "1:334120793213:web:71b868b85bc6f01261ed14"
+  };
 
-  toggleBtn.addEventListener("click", () => {
-    chatbotBox.classList.toggle("hidden");
-  });
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.firestore();
 
-  chatForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const msg = chatInput.value.trim();
-    if (msg === "") return;
-
-    addUserMessage(msg);
-    chatInput.value = "";
-    handleKeywords(msg.toLowerCase());
-  });
-
-  function addUserMessage(text) {
-    const msg = document.createElement("div");
-    msg.className = "bg-blue-100 p-2 rounded self-end max-w-[90%]";
-    msg.textContent = text;
-    chatBox.appendChild(msg);
-    chatBox.scrollTop = chatBox.scrollHeight;
-  }
-
-  function addBotMessage(text) {
-    const msg = document.createElement("div");
-    msg.className = "bg-gray-100 p-2 rounded max-w-[90%]";
-    msg.textContent = text;
-    chatBox.appendChild(msg);
-    chatBox.scrollTop = chatBox.scrollHeight;
-  }
-
-  function showSuggestions(questions) {
-    quickReplies.innerHTML = "";
-    quickReplies.classList.remove("hidden");
-
-    questions.forEach(q => {
-      const btn = document.createElement("button");
-      btn.textContent = q;
-      btn.className = "block w-full text-left px-3 py-1 bg-gray-100 rounded hover:bg-gray-200";
-      btn.onclick = () => {
-        addUserMessage(q);
-        quickReplies.classList.add("hidden");
-        setTimeout(() => {
-          addBotMessage("Berikut penjelasannya untuk: " + q);
-        }, 1000);
-      };
-      quickReplies.appendChild(btn);
-    });
-  }
-
-  function handleKeywords(keyword) {
-    if (keyword.includes("login")) {
-      showSuggestions([
-        "Bagaimana cara login?",
-        "Lupa password akun saya",
-        "Email saya tidak terdaftar"
-      ]);
-    } else if (keyword.includes("upload")) {
-      showSuggestions([
-        "Bagaimana cara upload video?",
-        "Format video yang didukung apa saja?",
-        "Kenapa upload saya gagal?"
-      ]);
-    } else if (keyword.includes("koleksi")) {
-      showSuggestions([
-        "Dimana melihat koleksi saya?",
-        "Bagaimana cara menyimpan video?",
-        "Koleksi saya hilang"
-      ]);
+  let currentUser = null;
+  auth.onAuthStateChanged(user => {
+    if (user) {
+      currentUser = user;
     } else {
-      setTimeout(() => {
-        addBotMessage("Terima kasih! Kami akan membalas segera.");
-        quickReplies.classList.add("hidden");
-      }, 1000);
+      window.location.href = "login.html";
     }
-  }
-
-  chatAdmin.addEventListener("click", () => {
-    addUserMessage("Chat Admin");
-    setTimeout(() => {
-      addBotMessage("Terima kasih! Kami akan membalas segera.");
-    }, 1000);
   });
 </script>
-<!-- ✅ Script Pertanyaan 85 Soal (Jangan Ubah Urutan!) -->
+
 <script>
 const questions = [
-  {
-    title: "Bagian 1: Interaksi Sosial, Gaya Komunikasi, Respons Sosial",
-    items: [
-      "Saya merasa bersemangat ketika berada di tengah keramaian.",
-      "Saya lebih suka menghabiskan waktu sendiri daripada berkumpul dengan banyak orang.",
-      "Saya mudah memulai percakapan dengan orang baru.",
-      "Saya merasa cepat lelah setelah banyak bersosialisasi.",
-      "Saya menikmati menjadi pusat perhatian.",
-      "Saya lebih suka mendengarkan daripada berbicara.",
-      "Saya sering mengajak teman untuk bertemu tanpa alasan khusus.",
-      "Saya merasa gugup saat harus berbicara di depan banyak orang.",
-      "Saya suka berbagi cerita atau pengalaman saya kepada orang lain.",
-      "Saya sering menyimpan perasaan sendiri tanpa membagikannya ke orang lain.",
-      "Saya cepat merasa nyaman dalam kelompok baru.",
-      "Saya butuh waktu lama untuk membuka diri kepada orang lain.",
-      "Saya sering mendapat teman baru di tempat baru.",
-      "Saya lebih memilih menonton atau membaca daripada hangout dengan teman.",
-      "Saya merasa terganggu jika harus sering bersosialisasi."
-    ]
-  },
-  {
-    title: "Bagian 2: Pandangan tentang Hubungan dan Toleransi",
-    items: [
-      "Saya merasa hubungan antara pria dan wanita adalah hal yang wajar dan normal.",
-      "Saya percaya bahwa hubungan antara pria dan pria juga memiliki nilai cinta yang setara.",
-      "Saya mendukung hubungan antara wanita dan wanita jika mereka saling mencintai.",
-      "Saya merasa tidak nyaman melihat pasangan sesama jenis menunjukkan kasih sayang di tempat umum.",
-      "Semua orang berhak memilih pasangan hidupnya, tanpa memandang gender.",
-      "Saya bersedia berteman dengan seseorang yang memiliki orientasi seksual berbeda dari saya.",
-      "Saya percaya bahwa orientasi seksual adalah hak pribadi yang tidak boleh dihakimi.",
-      "Saya merasa orientasi seksual seseorang tidak memengaruhi kualitas hubungan pertemanan.",
-      "Saya akan menolak seseorang hanya karena dia memiliki orientasi seksual berbeda dari saya.",
-      "Saya mendukung hak-hak pasangan sesama jenis, termasuk untuk menikah secara legal."
-    ]
-  },
-  {
-    title: "Bagian 3: Preferensi Penampilan, Status Sosial, dan Ekspektasi",
-    items: [
-      "Penampilan fisik sangat penting bagi saya dalam memilih pasangan.",
-      "Saya lebih tertarik pada orang yang memiliki gaya berpakaian yang keren atau modis.",
-      "Saya tidak tertarik menjalin hubungan dengan seseorang yang tidak menarik secara fisik bagi saya.",
-      "Saya percaya bahwa daya tarik fisik bisa tumbuh seiring waktu.",
-      "Saya hanya bisa jatuh cinta jika orang itu terlihat 'ideal' menurut standar saya.",
-      "Saya mempertimbangkan latar belakang pendidikan seseorang sebelum memulai hubungan.",
-      "Status ekonomi pasangan berpengaruh besar dalam keputusan saya menjalin hubungan.",
-      "Saya merasa lebih nyaman menjalin hubungan dengan seseorang yang 'setara' dengan saya.",
-      "Saya tidak keberatan menjalin hubungan dengan orang dari latar belakang berbeda.",
-      "Saya percaya cinta tidak selalu harus mempertimbangkan status sosial.",
-      "Saya termasuk orang yang sangat selektif dalam memilih pasangan.",
-      "Saya lebih baik sendiri daripada menjalin hubungan yang tidak sesuai ekspektasi saya.",
-      "Saya punya standar tertentu yang harus dipenuhi sebelum membuka hati.",
-      "Saya terbuka menjalin hubungan meskipun orang tersebut tidak sesuai kriteria ideal saya.",
-      "Saya sulit jatuh cinta karena standar saya cukup tinggi."
-    ]
-  },
-  {
-    title: "Bagian 4: Seksualitas, Penampilan, Kesetiaan",
-    items: [
-      "Saya hanya mau berhubungan seks dengan pasangan tetap yang saya cintai.",
-      "Saya bisa menikmati hubungan seks tanpa keterlibatan emosi.",
-      "Saya sangat selektif dalam memilih partner seksual.",
-      "Saya tidak masalah berhubungan seks selama ada ketertarikan fisik.",
-      "Saya memandang hubungan seks sebagai bentuk ikatan emosional, bukan sekadar kepuasan.",
-      "Saya lebih tertarik secara seksual kepada orang yang berpenampilan menarik.",
-      "Wajah dan tubuh ideal sangat mempengaruhi hasrat seksual saya.",
-      "Saya lebih mudah terangsang oleh orang yang berpakaian dengan gaya tertentu.",
-      "Saya lebih fokus pada koneksi emosional daripada penampilan fisik.",
-      "Penampilan partner sangat penting bagi saya untuk bisa menikmati hubungan seksual.",
-      "Saya tidak pernah membayangkan memiliki lebih dari satu partner.",
-      "Saya percaya godaan untuk selingkuh bisa muncul jika partner tidak memenuhi kebutuhan saya.",
-      "Saya pernah tertarik secara seksual kepada orang lain saat masih dalam hubungan.",
-      "Saya akan mengakhiri hubungan dulu sebelum mencoba dengan orang lain.",
-      "Saya menganggap selingkuh secara emosional lebih berat daripada selingkuh secara fisik."
-    ]
-  },
-  {
-    title: "Bagian 5: Latar Belakang Ekonomi, Kehangatan, dan Stabilitas Keluarga",
-    items: [
-      "Keluarga saya cukup mampu secara ekonomi.",
-      "Saya tidak kekurangan saat tumbuh besar.",
-      "Orang tua saya selalu mendukung saya.",
-      "Saya berasal dari keluarga harmonis.",
-      "Saya sering melihat konflik di keluarga.",
-      "Saya memiliki lebih dari cukup dalam hal kebutuhan dasar.",
-      "Saya dibesarkan dalam lingkungan yang aman dan stabil.",
-      "Saya sering mendapatkan apa yang saya inginkan saat kecil.",
-      "Saya jarang merasa khawatir soal uang di rumah.",
-      "Keluarga saya termasuk kelas menengah ke atas.",
-      "Saya merasa dicintai dan diterima oleh keluarga.",
-      "Orang tua saya saling mendukung satu sama lain.",
-      "Saya jarang merasa tertekan saat di rumah.",
-      "Saya merasa memiliki keluarga yang stabil.",
-      "Keluarga saya memberikan saya rasa aman secara emosional."
-    ]
-  },
-  {
-    title: "Bagian 6: Kejujuran, Moral, Empati, dan Potensi Antisosial",
-    items: [
-      "Saya selalu berusaha berkata jujur.",
-      "Saya tidak suka menyakiti orang lain.",
-      "Saya merasa bersalah jika berbuat salah.",
-      "Saya menjaga kepercayaan orang lain.",
-      "Saya tidak pernah menipu orang lain demi keuntungan pribadi.",
-      "Saya pernah memanipulasi orang hanya untuk kesenangan.",
-      "Saya tidak merasa bersalah jika menyakiti orang.",
-      "Saya sering merasa lebih hebat dari orang lain.",
-      "Saya bisa sangat dingin jika itu menguntungkan saya.",
-      "Saya suka mengambil risiko tanpa memikirkan akibatnya.",
-      "Saya tidak punya rasa empati yang dalam.",
-      "Saya terkadang memanfaatkan kelemahan orang lain.",
-      "Saya merasa bangga jika bisa menipu orang lain.",
-      "Saya menikmati membuat orang bingung demi hiburan saya.",
-      "Saya pernah melanggar aturan hanya demi sensasi."
-    ]
-  }
+  { text: "Saya mudah berkenalan dengan orang baru", part: 1 },
+  { text: "Saya nyaman berbicara di depan banyak orang", part: 1 },
+  { text: "Saya suka mengikuti kegiatan komunitas", part: 1 },
+  { text: "Saya sering memulai percakapan", part: 1 },
+  { text: "Saya merasa diterima di lingkungan sekitar", part: 1 },
+  { text: "Saya sering membantu orang lain", part: 1 },
+  { text: "Saya mampu bekerja sama dalam tim", part: 1 },
+  { text: "Saya mudah memahami perasaan orang lain", part: 1 },
+  { text: "Saya senang menjadi bagian dari kelompok", part: 1 },
+  { text: "Saya memiliki banyak teman dekat", part: 1 },
+
+  { text: "Saya cepat memahami pelajaran logika", part: 2 },
+  { text: "Saya menyukai permainan strategi", part: 2 },
+  { text: "Saya mampu mengambil keputusan berdasarkan data", part: 2 },
+  { text: "Saya tertarik pada matematika atau sains", part: 2 },
+  { text: "Saya suka mengamati pola kejadian", part: 2 },
+  { text: "Saya menyukai tantangan yang memerlukan pemikiran", part: 2 },
+  { text: "Saya mampu menganalisis masalah dari berbagai sudut", part: 2 },
+  { text: "Saya sering diminta pendapat untuk menyelesaikan masalah", part: 2 },
+  { text: "Saya percaya diri dalam membuat keputusan rasional", part: 2 },
+  { text: "Saya terbiasa berpikir sebelum bertindak", part: 2 },
+
+  { text: "Saya mudah menyadari suasana hati saya", part: 3 },
+  { text: "Saya bisa menenangkan diri saat marah", part: 3 },
+  { text: "Saya peduli pada orang lain", part: 3 },
+  { text: "Saya bisa membayangkan perasaan orang lain", part: 3 },
+  { text: "Saya tidak mudah tersinggung", part: 3 },
+  { text: "Saya bisa mendengarkan orang lain dengan baik", part: 3 },
+  { text: "Saya bisa mengendalikan rasa cemas", part: 3 },
+  { text: "Saya terbuka terhadap kritik", part: 3 },
+  { text: "Saya tidak segan meminta maaf", part: 3 },
+  { text: "Saya mampu memaafkan kesalahan orang lain", part: 3 },
+
+  { text: "Saya menyelesaikan tugas tepat waktu", part: 4 },
+  { text: "Saya menjaga komitmen yang saya buat", part: 4 },
+  { text: "Saya tidak mudah menyerah", part: 4 },
+  { text: "Saya memiliki jadwal harian", part: 4 },
+  { text: "Saya bisa fokus dalam waktu lama", part: 4 },
+  { text: "Saya mengerjakan pekerjaan rumah tanpa disuruh", part: 4 },
+  { text: "Saya memperhatikan detail dalam tugas", part: 4 },
+  { text: "Saya bisa memimpin suatu kegiatan", part: 4 },
+  { text: "Saya belajar dari kesalahan", part: 4 },
+  { text: "Saya bertanggung jawab atas tindakan saya", part: 4 },
+
+  { text: "Saya senang menggambar atau menciptakan karya seni", part: 5 },
+  { text: "Saya memiliki ide-ide unik", part: 5 },
+  { text: "Saya menyukai cerita atau dongeng", part: 5 },
+  { text: "Saya sering memiliki solusi tidak biasa", part: 5 },
+  { text: "Saya tertarik menciptakan sesuatu baru", part: 5 },
+  { text: "Saya menulis cerita atau puisi", part: 5 },
+  { text: "Saya suka bereksperimen", part: 5 },
+  { text: "Saya menggunakan imajinasi saat bermain", part: 5 },
+  { text: "Saya tertarik pada dunia seni", part: 5 },
+  { text: "Saya bisa berpikir 'di luar kotak'", part: 5 },
+
+  { text: "Saya memiliki cita-cita yang jelas", part: 6 },
+  { text: "Saya tahu langkah yang harus saya ambil", part: 6 },
+  { text: "Saya memiliki semangat belajar yang tinggi", part: 6 },
+  { text: "Saya merasa yakin dengan masa depan saya", part: 6 },
+  { text: "Saya punya target hidup jangka panjang", part: 6 },
+  { text: "Saya mencari inspirasi dari tokoh sukses", part: 6 },
+  { text: "Saya terus mencoba walau gagal", part: 6 },
+  { text: "Saya termotivasi melihat kemajuan orang lain", part: 6 },
+  { text: "Saya bekerja keras demi masa depan", part: 6 },
+  { text: "Saya ingin membuat perubahan positif", part: 6 },
+
+  { text: "Saya menjaga pola makan sehat", part: 7 },
+  { text: "Saya berolahraga secara rutin", part: 7 },
+  { text: "Saya cukup tidur setiap hari", part: 7 },
+  { text: "Saya tahu cara mengelola stres", part: 7 },
+  { text: "Saya menyadari pentingnya istirahat", part: 7 },
+  { text: "Saya menjaga kebersihan tubuh", part: 7 },
+  { text: "Saya memeriksakan kesehatan secara berkala", part: 7 },
+  { text: "Saya menjaga waktu main dan belajar", part: 7 },
+  { text: "Saya tidak sering begadang", part: 7 },
+  { text: "Saya menyadari pentingnya kesehatan mental", part: 7 },
+
+  { text: "Keluarga saya memiliki rumah sendiri", part: 8 },
+  { text: "Saya bisa membeli barang tanpa harus menabung lama", part: 8 },
+  { text: "Orang tua saya memiliki pekerjaan tetap", part: 8 },
+  { text: "Saya memiliki akses internet di rumah", part: 8 },
+  { text: "Saya memiliki kamar tidur sendiri", part: 8 },
+  { text: "Keluarga saya memiliki kendaraan pribadi", part: 8 },
+  { text: "Kami rutin berlibur bersama", part: 8 },
+  { text: "Saya memiliki lebih dari satu pasang sepatu", part: 8 },
+  { text: "Saya tidak pernah kesulitan makan", part: 8 },
+  { text: "Saya punya tempat belajar sendiri di rumah", part: 8 },
+  { text: "Keluarga saya mendukung pendidikan saya", part: 8 },
+  { text: "Saya merasa aman dan nyaman di rumah", part: 8 },
+  { text: "Saya sering diajak berdiskusi oleh orang tua", part: 8 },
+  { text: "Kami punya tabungan keluarga", part: 8 },
+  { text: "Kami bisa memenuhi kebutuhan dasar dengan baik", part: 8 },
 ];
-</script>
-<script>
-let currentStep = 0;
-const container = document.getElementById("multi-step-form");
-const prevBtn = document.getElementById("prevBtn");
+
+const interpretations = {
+  1: "Sosialisasi: Kamu mudah akrab dengan orang lain.",
+  2: "Logika & Analisis: Kamu memiliki kemampuan berpikir logis yang kuat.",
+  3: "Emosi & Empati: Kamu mampu mengelola dan memahami emosi.",
+  4: "Kedisiplinan: Kamu bertanggung jawab dan disiplin.",
+  5: "Kreativitas: Kamu memiliki imajinasi dan ide-ide unik.",
+  6: "Motivasi: Kamu memiliki tujuan hidup dan semangat tinggi.",
+  7: "Kesehatan: Kamu menjaga keseimbangan hidup dengan baik.",
+  8: "Latar Belakang Ekonomi: Kamu berasal dari keluarga dengan kondisi relatif stabil."
+};
+
+let currentPart = 1;
+const totalParts = 8;
+let scores = {};
+let answers = {};
+const formContainer = document.getElementById("multi-step-form");
 const nextBtn = document.getElementById("nextBtn");
-let allResponses = Array(85).fill(null);
+const prevBtn = document.getElementById("prevBtn");
+const resultContainer = document.getElementById("result-container");
+const resultTable = document.getElementById("resultTable");
 
-// Render step soal
-function renderStep(step) {
-  container.innerHTML = "";
-  const section = questions[step];
-  const globalOffset = questions.slice(0, step).reduce((sum, q) => sum + q.items.length, 0);
+// Progress info
+const progressInfo = document.createElement('div');
+progressInfo.id = "progressInfo";
+progressInfo.className = "text-center font-medium text-sm text-gray-600 mt-2";
+document.getElementById("form-navigation").prepend(progressInfo);
 
-  const title = document.createElement("div");
-  title.className = "text-xl font-bold text-white bg-accent px-4 py-2 rounded shadow mb-6";
-  title.textContent = section.title;
-  container.appendChild(title);
-
-  section.items.forEach((q, i) => {
-    const index = globalOffset + i;
-    const div = document.createElement("div");
-    div.className = "mb-6";
-
-    const question = document.createElement("p");
-    question.className = "mb-2 font-medium text-gray-800";
-    question.innerText = `${index + 1}. ${q}`;
-    div.appendChild(question);
-
-    const options = document.createElement("div");
-    options.className = "flex gap-3 flex-wrap";
-
-    for (let j = 1; j <= 5; j++) {
-      const input = document.createElement("input");
-      input.type = "radio";
-      input.name = `q${index}`;
-      input.value = j;
-      input.className = "hidden peer";
-      input.checked = allResponses[index] === j;
-
-      const label = document.createElement("label");
-      label.className = "flex items-center gap-1 cursor-pointer";
-
-      const number = document.createElement("div");
-      number.className = `
-        px-3 py-1 rounded-full border border-gray-300
-        text-sm font-semibold text-gray-700 bg-gray-100
-        peer-checked:bg-accent peer-checked:text-black
-        hover:bg-accent hover:text-black transition
-      `;
-      number.innerText = j;
-
-      input.addEventListener("change", () => {
-        allResponses[index] = parseInt(input.value);
-      });
-
-      label.appendChild(input);
-      label.appendChild(number);
-      options.appendChild(label);
-    }
-
-    div.appendChild(options);
-    container.appendChild(div);
-  });
-
-  prevBtn.style.display = step === 0 ? "none" : "inline-block";
-  nextBtn.textContent = step === questions.length - 1 ? "Lihat Hasil" : "Lanjut";
+function updateProgressInfo() {
+  progressInfo.innerText = `Bagian ${currentPart} dari ${totalParts}`;
 }
 
-// Navigasi tombol
+function renderQuestions() {
+  formContainer.innerHTML = "";
+  const partQuestions = questions
+    .map((q, i) => ({ ...q, index: i }))
+    .filter(q => q.part === currentPart);
+
+  partQuestions.forEach(q => {
+    const highlight = (q.index >= 55 && q.index <= 59) ? "bg-yellow-100 border-yellow-400" : "";
+    const qDiv = document.createElement("div");
+    qDiv.className = `mb-3 p-2 rounded border ${highlight}`;
+    qDiv.innerHTML = `
+      <p class="font-medium mb-2">${q.index + 1}. ${q.text}</p>
+      <div class="flex gap-2 flex-wrap">
+        ${[1, 2, 3, 4, 5].map(val => `
+          <input type="radio" name="q${q.index}" id="q${q.index}_${val}" value="${val}" class="hidden" ${answers[q.index] == val ? "checked" : ""}>
+          <label for="q${q.index}_${val}" class="cursor-pointer border px-4 py-2 rounded-full">${val}</label>
+        `).join("")}
+      </div>
+    `;
+    formContainer.appendChild(qDiv);
+  });
+
+  prevBtn.classList.toggle("hidden", currentPart === 1);
+  nextBtn.textContent = currentPart === totalParts ? "Lihat Hasil" : "Lanjut";
+  updateProgressInfo();
+}
+
 nextBtn.addEventListener("click", () => {
-  const section = questions[currentStep];
-  const startIdx = questions.slice(0, currentStep).reduce((sum, q) => sum + q.items.length, 0);
-  const endIdx = startIdx + section.items.length;
-  const currentAnswers = allResponses.slice(startIdx, endIdx);
+  const partQuestions = questions
+    .map((q, i) => ({ ...q, index: i }))
+    .filter(q => q.part === currentPart);
 
-  if (currentAnswers.includes(null)) {
-    alert("Isi semua pertanyaan sebelum lanjut!");
-    return;
-  }
+  let valid = true;
 
-  if (currentStep < questions.length - 1) {
-    currentStep++;
-    renderStep(currentStep);
-  } else {
-    showResult();
+  partQuestions.forEach(q => {
+    const selected = document.querySelector(`input[name="q${q.index}"]:checked`);
+    if (!selected) {
+      alert(`Silakan isi pertanyaan nomor ${q.index + 1}`);
+      valid = false;
+    } else {
+      answers[q.index] = parseInt(selected.value);
+    }
+  });
+
+  if (valid) {
+    if (currentPart < totalParts) {
+      currentPart++;
+      renderQuestions();
+    } else {
+      calculateScores();
+      showResults();
+    }
   }
 });
 
 prevBtn.addEventListener("click", () => {
-  if (currentStep > 0) {
-    currentStep--;
-    renderStep(currentStep);
+  if (currentPart > 1) {
+    currentPart--;
+    renderQuestions();
   }
 });
 
-window.addEventListener("DOMContentLoaded", () => renderStep(currentStep));
-
-// Fungsi Hitung & Interpretasi
-function sum(arr) {
-  return arr.reduce((a, b) => a + b, 0);
+function calculateScores() {
+  scores = {};
+  questions.forEach((q, i) => {
+    const value = answers[i] || 0;
+    if (!scores[q.part]) scores[q.part] = 0;
+    scores[q.part] += value;
+  });
 }
 
+function showResults() {
+  resultContainer.classList.remove("hidden");
+  resultTable.innerHTML = "";
+  for (let part in scores) {
+    const partScore = scores[part];
+    const max = questions.filter(q => q.part == part).length * 5;
+    const percent = Math.round((partScore / max) * 100);
+    resultTable.innerHTML += `
+      <div class="p-2 border rounded-md bg-white shadow-sm mb-3">
+        <strong>Bagian ${part}</strong>: Skor ${partScore}/${max} (${percent}%)<br />
+        <span class="text-gray-700">${interpretations[part]}</span>
+      </div>
+    `;
+  }
+  resultContainer.scrollIntoView({ behavior: "smooth" });
+}
+</script>
+<!-- Submit ke Firestore -->
+<script>
 function interpretasiPerBagian(jawaban) {
-  const hasil = [];
+  let skorPerBagian = {};
+  let hasil = [];
 
-  const skor1 = sum(jawaban.slice(0, 15));
-  hasil.push({
-    bagian: "Interaksi Sosial", skor: skor1,
-    interpretasi: skor1 >= 55 ? "Kamu cenderung mudah berkawan, ekstrovert"
-      : skor1 >= 35 ? "Kamu memiliki sisi seimbang tergantung situasi"
-      : "Kamu lebih cenderung pendiam, introvert"
+  questions.forEach((q, i) => {
+    const nilai = jawaban[i] || 0;
+    if (!skorPerBagian[q.part]) skorPerBagian[q.part] = 0;
+    skorPerBagian[q.part] += nilai;
   });
 
-  const skor2 = sum(jawaban.slice(15, 25));
-  hasil.push({
-    bagian: "Toleransi & Hubungan", skor: skor2,
-    interpretasi: skor2 >= 45 ? "Kamu cukup terbuka dalam hubungan dan perbedaan"
-      : skor2 >= 30 ? "Kamu berada di tengah-tengah"
-      : "Kamu masih cukup tertutup atau selektif"
-  });
-
-  const skor3 = sum(jawaban.slice(25, 40));
-  hasil.push({
-    bagian: "Ekspektasi Pasangan", skor: skor3,
-    interpretasi: skor3 >= 60 ? "Kamu sangat selektif dan punya ekspektasi tinggi"
-      : skor3 >= 45 ? "Kamu cukup realistis dalam hubungan"
-      : "Kamu cenderung terbuka pada berbagai tipe pasangan"
-  });
-
-  const s4 = jawaban.slice(40, 55);
-  hasil.push({
-    bagian: "Preferensi Seksual", skor: "-",
-    interpretasi: `
-1. Selektif: ${sum(s4.slice(0, 5)) >= 15 ? "Kamu cukup selektif dan mengutamakan emosi" : "Cenderung fleksibel secara emosional"}
-2. Visual: ${sum(s4.slice(5, 10)) >= 15 ? "Penampilan sangat berpengaruh" : "Penampilan bukan segalanya"}
-3. Kesetiaan: ${sum(s4.slice(10, 15)) >= 15 ? "Kamu sangat menjunjung eksklusivitas" : "Kamu mungkin terbuka pada relasi fleksibel"}
-    `.trim()
-  });
-
-  const s5 = jawaban.slice(55, 70);
-  hasil.push({
-    bagian: "Latar Belakang Keluarga", skor: "-",
-    interpretasi: `
-Ekonomi: ${sum(s5.slice(0, 5)) >= 15 ? "Cenderung mapan" : "Pernah mengalami keterbatasan"}
-Kehangatan: ${sum(s5.slice(5, 10)) >= 15 ? "Keluarga hangat dan mendukung" : "Kurang hangat / banyak konflik"}
-Stabilitas: ${sum(s5.slice(10, 15)) >= 15 ? "Stabil dan utuh" : "Mungkin pernah mengalami ketidakstabilan keluarga"}
-    `.trim()
-  });
-
-  const s6 = jawaban.slice(70, 85);
-  hasil.push({
-    bagian: "Moral & Kepribadian", skor: "-",
-    interpretasi: `
-Kejujuran: ${sum(s6.slice(0, 5)) >= 15 ? "Sangat menjunjung kejujuran" : "Perlu introspeksi tentang nilai kejujuran"}
-Empati: ${sum(s6.slice(5, 10)) >= 15 ? "Empatik dan peka" : "Kurang peka terhadap perasaan orang lain"}
-Psikopat: ${sum(s6.slice(10, 15)) >= 15 ? "⚠️ Perlu waspada terhadap kecenderungan manipulatif" : "Tidak menunjukkan tanda berbahaya"}
-    `.trim()
-  });
+  for (let i = 1; i <= totalParts; i++) {
+    const max = questions.filter(q => q.part === i).length * 5;
+    const nilai = skorPerBagian[i] || 0;
+    const persen = Math.round((nilai / max) * 100);
+    hasil.push({
+      bagian: `Bagian ${i}`,
+      skor: `${nilai}/${max}`,
+      persen,
+      interpretasi: interpretations[i]
+    });
+  }
 
   return hasil;
 }
 
-// Tampilkan hasil akhir
-function showResult() {
-  if (allResponses.includes(null)) {
-    alert("Isi semua pertanyaan terlebih dahulu!");
+async function saveToFirestore() {
+  if (!currentUser) {
+    alert("🔒 Harus login terlebih dahulu.");
     return;
   }
 
-  const hasil = interpretasiPerBagian(allResponses);
-  const resultTable = document.getElementById("resultTable");
-  const resultContainer = document.getElementById("result-container");
+  const formData = new FormData(document.getElementById("user"));
+  const nama = formData.get("nama");
+  const hp = formData.get("hp");
+  const usia = formData.get("usia");
+  const cerita = formData.get("cerita");
+  const alasan = formData.get("alasan");
+  const email = formData.get("email");
 
-  resultTable.innerHTML = `
-    <table class="w-full text-sm border border-gray-300 rounded-lg overflow-hidden shadow-sm">
-      <thead class="bg-accent text-black font-bold">
-        <tr><th class="p-3 text-left">Bagian</th><th class="p-3">Skor</th><th class="p-3 text-left">Interpretasi</th></tr>
-      </thead>
-      <tbody class="bg-white divide-y divide-gray-200">
-        ${hasil.map(row => `
-          <tr>
-            <td class="p-3 font-semibold text-dark align-top">${row.bagian}</td>
-            <td class="p-3 text-center">${row.skor}</td>
-            <td class="p-3 whitespace-pre-line text-gray-700">${row.interpretasi}</td>
-          </tr>
-        `).join("")}
-      </tbody>
-    </table>
-  `;
+  if (!nama || !hp || !usia || !cerita || !alasan || !email) {
+    alert("⚠️ Semua kolom wajib diisi.");
+    return;
+  }
 
-  resultContainer.classList.remove("hidden");
-  container.style.display = "none";
-  document.getElementById("form-navigation").style.display = "none";
+  calculateScores(); // ← pastikan skor sudah dihitung
+let hasilInterpretasi = [];
+
+for (let part in scores) {
+  const partScore = scores[part];
+  const max = questions.filter(q => q.part == part).length * 5;
+  const percent = Math.round((partScore / max) * 100);
+  hasilInterpretasi.push({
+    bagian: `Bagian ${part}`,
+    interpretasi: interpretations[part],
+    skor: `${partScore}/${max} (${percent}%)`
+  });
+}
+
+// Ini hasil final yang akan dikirim ke Firestore
+const interpretasi = hasilInterpretasi.map(b => `${b.bagian}: ${b.interpretasi} | Skor ${b.skor}`).join("\n");
+
+  try {
+  await db.collection("user").add({
+    uid: currentUser.uid,
+    email,
+    nama,
+    hp,
+    usia,
+    cerita,
+    alasan,
+    jawaban: answers,
+    interpretasi,
+    waktu: new Date().toISOString()
+  });
+
+  alert("✅ Data berhasil dikirim!");
+
+  // Tambahkan session login agar bisa akses index.html
+  sessionStorage.setItem("fromLogin", "true");
+  window.location.href = "index.html";
+
+} catch (err) {
+  console.error("Firestore error:", err);
+  alert("❌ Gagal menyimpan: " + err.message);
+}
+
+}
+
+// Tangkap submit formulir
+document.getElementById("user").addEventListener("submit", function (e) {
+  e.preventDefault();
+  saveToFirestore();
+});
+</script>
+
+<!-- Export PDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+function exportPDF() {
+  const nama = document.querySelector('input[name="nama"]').value || "tanpa_nama";
+  const element = document.getElementById("result-container");
+
+  html2pdf()
+    .set({
+      margin: 0.5,
+      filename: `Hasil_Pengenalan_${nama}.pdf`,
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: "in", format: "a4", orientation: "portrait" }
+    })
+    .from(element)
+    .save();
 }
 </script>
 
-<!-- ✅ Kirim Formulir ke Backend -->
+<!-- Trigger render pertanyaan saat page load -->
 <script>
-document.getElementById("formulir").addEventListener("submit", async function (e) {
-  e.preventDefault();
-
-  const form = e.target;
-  const formData = new FormData(form);
-
-  const res = await fetch("/submit-form", {
-    method: "POST",
-    body: formData,
+  document.addEventListener("DOMContentLoaded", () => {
+    renderQuestions();
   });
+</script>
 
-  const result = await res.json();
-
-  if (result.success && result.redirect) {
-    sessionStorage.setItem("fromLogin", true);
-    window.location.href = result.redirect;
-  } else {
-    alert("❌ Gagal menyimpan data. Silakan coba lagi.");
-  }
-});
+<!-- ✅ Tambahkan fungsi redirect ini di bawah -->
+<script>
+function toIndex() {
+  sessionStorage.setItem("fromLogin", "true");
+  window.location.href = "index.html";
+}
 </script>
